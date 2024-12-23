@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sehat API Documentation</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        .endpoint {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .get { background: #e7f5ff; color: #1971c2; }
+        .post { background: #ebfbee; color: #2b8a3e; }
+        .put { background: #fff3bf; color: #e67700; }
+        .delete { background: #ffe3e3; color: #c92a2a; }
+        .route { font-family: monospace; }
+        h1 { color: #1a1a1a; }
+        h2 { color: #2c2c2c; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Sehat API Documentation</h1>
+
+    <h2>Clinics Management</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics</span>
+        <p>Get all clinics</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/clinics</span>
+        <p>Create new clinic<br>
+        Body: { Nama, Lokasi, Telepon, Jam_Operasional }</p>
+    </div>
+    <div class="endpoint">
+        <span class="method put">PUT</span>
+        <span class="route">/api/clinics/:id</span>
+        <p>Update clinic<br>
+        Body: { Nama, Lokasi, Telepon, Jam_Operasional }</p>
+    </div>
+    <div class="endpoint">
+        <span class="method delete">DELETE</span>
+        <span class="route">/api/clinics/:id</span>
+        <p>Delete clinic</p>
+    </div>
+
+    <h2>Patients Management</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/patients</span>
+        <p>Get all patients for a specific clinic</p>
+    </div>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/patients/search?keyword=</span>
+        <p>Search patients in a clinic</p>
+    </div>
+
+    <h2>Healthcare Workers (Nakes) Management</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/nakes</span>
+        <p>Get all healthcare workers for a clinic</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/clinics/:klinik_id/nakes</span>
+        <p>Add healthcare worker to clinic<br>
+        Body: { Nama, Spesialisasi, Nomor_STR, Jenis_Kelamin, Telepon, Email }</p>
+    </div>
+
+    <h2>Visits Management</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/visits</span>
+        <p>Get all visits for a clinic</p>
+    </div>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:pasien_id/visits</span>
+        <p>Get all visits for a specific patient</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/clinics/:klinik_id/visits</span>
+        <p>Add visit record<br>
+        Body: { pasien_id, nakes_id, Tanggal_Kunjungan, Keluhan, Diagnosa }</p>
+    </div>
+
+    <h2>Medical Records</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/medical-records</span>
+        <p>Get all medical records for a clinic</p>
+    </div>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:pasien_id/medical-records</span>
+        <p>Get all medical records for a specific patient</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/medical-records</span>
+        <p>Create medical record<br>
+        Body: { kunjungan_id, Detail_Rekam_Medis }</p>
+    </div>
+
+    <h2>Payments</h2>
+    <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="route">/api/clinics/:klinik_id/payments</span>
+        <p>Get all payments for a clinic</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/payments</span>
+        <p>Create payment record<br>
+        Body: { kunjungan_id, Total_Bayar, Metode_Bayar, Status_Pembayaran }</p>
+    </div>
+
+    <h2>Authentication</h2>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/auth/login</span>
+        <p>User login<br>
+        Body: { email, password }</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/auth/register</span>
+        <p>User registration<br>
+        Body: { Nama, Tanggal_Lahir, Jenis_Kelamin, Alamat, No_Telepon, Email, Password, klinik_id }</p>
+    </div>
+    <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="route">/api/auth/logout</span>
+        <p>User logout</p>
+    </div>
+</body>
+</html>
